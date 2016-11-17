@@ -66,7 +66,7 @@ val userForm = Form(
 对应的数据mapping有对应的转译接口：
 
 ```scala
-  /** 将form数据解析成对应的数据，并且传入参数_.1是做错误处理，_.2做正常数据处理
+  /** 将form数据解析成对应的数据，并且传入参数是两个函数：_.1是做错误处理，_.2做正常数据处理
    *{{{
    *   anyForm.bindFromRequest().fold(
    *      f => redisplayForm(f),
