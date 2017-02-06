@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<customer id="2">
+    <age>1</age>
+    <book id="2">
+        <name>scala impatience</name>
+    </book>
+    <name>kin</name>
+</customer>
