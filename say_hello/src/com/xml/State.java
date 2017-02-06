@@ -3,16 +3,28 @@ package com.xml;
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import java.util.List;
 
 /**
  * Created by kinakihiro on 2017/2/6.
  */
 @XmlRootElement
-public class Region {
+public class State {
 
     private String Name;
 
     private String Code;
+
+    private List<City> City;
+
+    @XmlElement
+    public List<com.xml.City> getCity() {
+        return City;
+    }
+
+    public void setCity(List<com.xml.City> city) {
+        City = city;
+    }
 
     @XmlAttribute
     public String getName() {
@@ -30,13 +42,5 @@ public class Region {
 
     public void setCode(String code) {
         Code = code;
-    }
-
-    @Override
-    public String toString() {
-        return "Region{" +
-                "Name='" + Name + '\'' +
-                ", Code='" + Code + '\'' +
-                '}';
     }
 }
