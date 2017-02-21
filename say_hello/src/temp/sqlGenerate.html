@@ -1,140 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>修改数据库生成 sql</title>
-</head>
-<body>
-    <table align="center" width="80%" border="true">
-        <tr>
-            <td width="15%">修改销售总价</td>
-            <td>
-                订单号:<input id="air_1_1" name="air_1" type="text">
-                &nbsp;原销售总价:<input id="air_1_2" name="air_1" type="text">
-                &nbsp;改后销售总价:<input id="air_1_3" name="air_1" type="text">
+    <head>
+        <meta charset="UTF-8">
+        <title>修改数据库生成 sql</title>
+    </head>
+    <body>
+        <table align="center" width="80%" border="true">
+            <tr>
+                <td colspan="3">机票订单</td>
+            </tr>
+            <tr>
+                <td width="15%">修改销售总价(订单+票)</td>
+                <td>
+                    订单号:<input id="air_1_1" name="air_1" type="text">
+                    &nbsp;原销售总价:<input id="air_1_2" name="air_1" type="text">
+                    &nbsp;改后销售总价:<input id="air_1_3" name="air_1" type="text">
                 <input id = "air_1" type="hidden" value="update fb_order set total_price = _3_ where id = '_1_' and total_price = _2_ ;</p><p>
-update air_ticket set actual_price = _3_ where id = (select product_id from fb_order_product where fb_order_id = '_1_') and actual_price = _2_ ;">
+                update air_ticket set actual_price = _3_ where id = (select product_id from fb_order_product where fb_order_id = '_1_') and actual_price = _2_ ;">
             </td>
             <td width="10%"><input type="button" value="生成" onclick="addStr('air_1')"></td>
         </tr>
-
         <tr>
             <td width="15%">修改采购总价</td>
             <td>
                 订单号:<input id="air_2_1" name="air_2" type="text">
                 &nbsp;原采购总价:<input id="air_2_2" name="air_2" type="text">
                 &nbsp;改后采购总价:<input id="air_2_3" name="air_2" type="text">
-                <input id = "air_2" type="hidden" value="update fb_order set cost_price = _3_ where id = '_1_' and cost_price = _2_;</p><p>
-update air_ticket set cost_price = _3_ where id = (select product_id from fb_order_product where fb_order_id = '_1_') and cost_price = _2_;">
-            </td>
-            <td width="10%"><input type="button" value="生成" onclick="addStr('air_2')"></td>
-        </tr>
-
-        <tr>
-            <td width="15%">修改预定渠道</td>
-            <td>
-                订单号:<input id="air_3_1" name="air_3" type="text">
-                &nbsp;订单渠道:<select id="air_3_2" name="air_3"><option value="101">51book</option><option value="103">航司官网</option> <option value="109">百拓商旅</option> <option value="110">京杭</option>  </select>
-                <input id = "air_3" type="hidden" value="update air_ticket set supplier_id = _2_ where id = (select product_id from fb_order_product where fb_order_id = '_1_');">
-            </td>
-            <td width="10%"><input type="button" value="生成" onclick="addStr('air_3')"></td>
-        </tr>
-
-        <tr>
-            <td width="15%">修改预定时间</td>
-            <td>
-                订单号:<input id="air_4_1" name="air_4" type="text">
-                &nbsp;日期修改方向:<select id="air_4_2" name="air_4" type="text"><option value="+">向后</option><option value="-">向前</option> </select>
-                &nbsp;修改时间:<input type="text" id="air_4_4" name="air_4">
-                <select id="air_4_3" name="air_4">
-                    <option value="years">年</option>
-                    <option value="months">月</option>
-                    <option value="weeks">周</option>
-                    <option value="days">日</option>
-                    <option value="hours">小时</option>
-                    <option value="minutes">分</option>
-                    <option value="seconds">秒</option>
-                </select>
-                <input id = "air_4" type="hidden" value="update air_ticket set create_time = create_time _2_ interval '_4_ _3_' where id in (select product_id from fb_order_product where fb_order_id = '_1_');">
-            </td>
-            <td width="10%"><input type="button" value="生成" onclick="addStr('air_4')"></td>
-        </tr>
-
-        <tr>
-            <td width="15%">修改代理费</td>
-            <td>
-                订单号:<input id="air_5_1" name="air_5" type="text">
-                &nbsp;原代理费:<input id="air_5_2" name="air_5" type="text">
-                &nbsp;改后代理费:<input id="air_5_3" name="air_5" type="text">
-                <input id = "air_5" type="hidden" value="update change_ticket_rel set agency_fee = _3_  where order_id = '_1_' and agency_fee = _2_ ;">
-            </td>
-            <td width="10%"><input type="button" value="生成" onclick="addStr('air_5')"></td>
-        </tr>
-
-        <tr>
-            <td width="15%">修改改签费</td>
-            <td>
-                订单号:<input id="air_6_1" name="air_6" type="text">
-                &nbsp;原改签费:<input id="air_6_2" name="air_6" type="text">
-                &nbsp;改后改签费:<input id="air_6_3" name="air_6" type="text">
-                <input id = "air_6" type="hidden" value="update change_ticket_rel set change_fee = _3_  where order_id = '_1_' and change_fee = _2_ ;">
-            </td>
-            <td width="10%"><input type="button" value="生成" onclick="addStr('air_6')"></td>
-        </tr>
-
-    </table>
-    <table align="center" width="80%" border="true">
-        <tr>
-            <td align="center">
-                <div id="result" align="center"></div>
-            </td>
-        </tr>
-        <tr>
-            <td align="center"><input align="center" type="button" value="生成" onclick="download()"></td>
-        </tr>
-    </table>
+            <input id = "air_2" type="hidden" value="update fb_order set cost_price = _3_ where id = '_1_' and cost_price = _2_;</p><p>
+            update air_ticket set cost_price = _3_ where id = (select product_id from fb_order_product where fb_order_id = '_1_') and cost_price = _2_;">
+        </td>
+        <td width="10%"><input type="button" value="生成" onclick="addStr('air_2')"></td>
+    </tr>
+    <tr>
+        <td width="15%">修改预定渠道</td>
+        <td>
+            订单号:<input id="air_3_1" name="air_3" type="text">
+            &nbsp;订单渠道:<select id="air_3_2" name="air_3"><option value="101">51book</option><option value="103">航司官网</option> <option value="109">百拓商旅</option> <option value="110">京杭</option>  </select>
+            <input id = "air_3" type="hidden" value="update air_ticket set supplier_id = _2_ where id = (select product_id from fb_order_product where fb_order_id = '_1_');">
+        </td>
+        <td width="10%"><input type="button" value="生成" onclick="addStr('air_3')"></td>
+    </tr>
+    <tr>
+        <td width="15%">修改预定时间</td>
+        <td>
+            订单号:<input id="air_4_1" name="air_4" type="text">
+            &nbsp;日期修改方向:<select id="air_4_2" name="air_4" type="text"><option value="+">向后</option><option value="-">向前</option> </select>
+            &nbsp;修改时间:<input type="text" id="air_4_4" name="air_4">
+            <select id="air_4_3" name="air_4">
+                <option value="years">年</option>
+                <option value="months">月</option>
+                <option value="weeks">周</option>
+                <option value="days">日</option>
+                <option value="hours">小时</option>
+                <option value="minutes">分</option>
+                <option value="seconds">秒</option>
+            </select>
+            <input id = "air_4" type="hidden" value="update air_ticket set create_time = create_time _2_ interval '_4_ _3_' where id in (select product_id from fb_order_product where fb_order_id = '_1_');">
+        </td>
+        <td width="10%"><input type="button" value="生成" onclick="addStr('air_4')"></td>
+    </tr>
+    <tr>
+        <td width="15%">修改代理费</td>
+        <td>
+            订单号:<input id="air_5_1" name="air_5" type="text">
+            &nbsp;原代理费:<input id="air_5_2" name="air_5" type="text">
+            &nbsp;改后代理费:<input id="air_5_3" name="air_5" type="text">
+            <input id = "air_5" type="hidden" value="update change_ticket_rel set agency_fee = _3_  where order_id = '_1_' and agency_fee = _2_ ;">
+        </td>
+        <td width="10%"><input type="button" value="生成" onclick="addStr('air_5')"></td>
+    </tr>
+    <tr>
+        <td width="15%">修改改签费</td>
+        <td>
+            订单号:<input id="air_6_1" name="air_6" type="text">
+            &nbsp;原改签费:<input id="air_6_2" name="air_6" type="text">
+            &nbsp;改后改签费:<input id="air_6_3" name="air_6" type="text">
+            <input id = "air_6" type="hidden" value="update change_ticket_rel set change_fee = _3_  where order_id = '_1_' and change_fee = _2_ ;">
+        </td>
+        <td width="10%"><input type="button" value="生成" onclick="addStr('air_6')"></td>
+    </tr>
+    <tr>
+        <td width="15%">修改销售总价(订单)</td>
+        <td>
+            订单号:<input id="air_7_1" name="air_7" type="text">
+            &nbsp;原销售总价:<input id="air_7_2" name="air_7" type="text">
+            &nbsp;改后销售总价:<input id="air_7_3" name="air_7" type="text">
+            <input id = "air_7" type="hidden" value="update fb_order set total_price = _3_ where id = '_1_' and total_price = _2_ ;">
+        </td>
+        <td width="10%"><input type="button" value="生成" onclick="addStr('air_7')"></td>
+    </tr>
+    <tr>
+        <td width="15%">修改销售价(票)</td>
+        <td>
+            订单号:<input id="air_8_1" name="air_8" type="text">
+            &nbsp;原销售总价:<input id="air_8_2" name="air_8" type="text">
+            &nbsp;改后销售总价:<input id="air_8_3" name="air_8" type="text">
+            <input id = "air_8" type="hidden" value="update air_ticket set actual_price = _3_ where id = (select product_id from fb_order_product where fb_order_id = '_1_') and actual_price = _2_ ;">
+        </td>
+        <td width="10%"><input type="button" value="生成" onclick="addStr('air_8')"></td>
+    </tr>
+    <tr>
+        <td width="15%">修改机票状态</td>
+        <td>
+            订单号:<input id="air_9_1" name="air_9" type="text">
+            &nbsp;订单状态:<select id="air_9_2" name="air_9">
+                <option value="1100">待支付</option>
+                <option value="1211">已取消</option>
+                <option value="1400">已关闭</option>
+                <option value="1700">出票中</option>
+                <option value="1800">出票成功</option>
+                <option value="1801">出票失败</option>
+                <option value="1802">预订失败</option>
+                <option value="1810">退票中</option>
+                <option value="1811">退票成功</option>
+                <option value="1812">退票失败</option>
+                <option value="1820">改签中</option>
+                <option value="1821">改签成功(原单)</option>
+                <option value="1822">改签失败</option>
+                <option value="1823">改签成功（新单）</option>
+            </select>
+               &nbsp;原订单状态:<select id="air_9_3" name="air_9">
+                <option value="1100">待支付</option>
+                <option value="1211">已取消</option>
+                <option value="1400">已关闭</option>
+                <option value="1700">出票中</option>
+                <option value="1800">出票成功</option>
+                <option value="1801">出票失败</option>
+                <option value="1802">预订失败</option>
+                <option value="1810">退票中</option>
+                <option value="1811">退票成功</option>
+                <option value="1812">退票失败</option>
+                <option value="1820">改签中</option>
+                <option value="1821">改签成功(原单)</option>
+                <option value="1822">改签失败</option>
+                <option value="1823">改签成功(新单)</option>
+            </select>
+            <input id = "air_9" type="hidden" value="update air_ticket set status = _2_ where id = (select product_id from fb_order_product where fb_order_id = '_1_') and status = _3_;">
+        </td>
+        <td width="10%"><input type="button" value="生成" onclick="addStr('air_9')"></td>
+    </tr>
+    <tr>
+        <td colspan="3">酒店订单</td>
+    </tr>
+    <tr>
+        <td width="15%">修改采购总价</td>
+        <td>
+            订单号:<input id="hotel_1_1" name="hotel_1" type="text">
+            &nbsp;原采购总价:<input id="hotel_1_2" name="hotel_1" type="text">
+            &nbsp;改后采购总价:<input id="hotel_1_3" name="hotel_1" type="text">
+        <input id = "hotel_1" type="hidden" value="update fb_order set cost_price = _3_ where id = '_1_' and cost_price = _2_;</p><p>
+        update hotel set cost_price = _3_ where id = (select product_id from fb_order_product where fb_order_id = '_1_') and cost_price = _2_;">
+    </td>
+    <td width="10%"><input type="button" value="生成" onclick="addStr('hotel_1')"></td>
+</tr>
+</table>
+<table align="center" width="80%" border="true">
+<tr>
+    <td align="center">
+        <div id="result" align="center"></div>
+    </td>
+</tr>
+<tr>
+    <td align="center"><input align="center" type="button" value="生成" onclick="download()"></td>
+</tr>
+</table>
 </body>
 </html>
 <script>
-    function addStr(str){
-        var result = document.getElementById("result");
-        var html = result.innerHTML ;
-
-        var info = document.getElementsByName(str);
-        var originSql = document.getElementById(str).value;
-
-        info.forEach(
-            function(inf){
-                var id = inf.id;
-                var text = inf.value;
-                var reg = "_" + id.replace(str+"_","") + "_";
-                var re = new RegExp(reg,"g");
-                originSql = originSql.replace(re,text);
-            }
-        );
-
-        var data = "<p name='sql'>"+originSql+"</p>";
-
-        html2 = html + data;
-        result.innerHTML = html2;
-    }
-
-    function download(){
-        var content = document.getElementById("result").innerText;
-        downloadFile(content)
-    }
-
-    function downloadFile(content){
-        var now = new Date();
-        var time = now.getFullYear()+""+ (now.getMonth()+1) + "" + now.getDate() + "_"+now.getHours()+":"+now.getMinutes();
-        console.log(time +": " + content);
-        var blob = new Blob([content]);
-        var a = document.createElement("a");
-        a.href = window.URL.createObjectURL(blob);
-        a.download = time+".sql";
-        a.textContent = "Download";
-
+function addStr(str){
+var result = document.getElementById("result");
+var html = result.innerHTML ;
+var info = document.getElementsByName(str);
+var originSql = document.getElementById(str).value;
+// info.forEach(
+//     function(inf){
+//         var id = inf.id;
+//         var text = inf.value;
+//         var reg = "_" + id.replace(str+"_","") + "_";
+//         var re = new RegExp(reg,"g");
+//         originSql = originSql.replace(re,text);
+//     }
+// );
+for(var i= 0; i < info.length;i++){
+var id = info.item(i).id;
+var text = info.item(i).value;
+var reg = "_" + id.replace(str+"_","") + "_";
+var re = new RegExp(reg,"g");
+originSql = originSql.replace(re,text);
+}
+var data = "<p name='sql'>"+originSql+"</p>";
+html2 = html + data;
+result.innerHTML = html2;
+}
+function download(){
+var content = document.getElementById("result").innerText;
+downloadFile(content)
+}
+function downloadFile(content){
+var now = new Date();
+var time = now.getFullYear()+""+ (now.getMonth()+1) + "" + now.getDate() + "_"+now.getHours()+":"+now.getMinutes();
+console.log(time +": " + content);
+var blob = new Blob([content]);
+var a = document.createElement("a");
+a.href = window.URL.createObjectURL(blob);
+a.download = time+".sql";
+a.textContent = "Download";
 //        document.body.appendChild(a);
-        a.click()
-    }
+a.click()
+}
 </script>
