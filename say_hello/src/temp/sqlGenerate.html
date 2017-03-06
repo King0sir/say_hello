@@ -139,6 +139,18 @@
         </td>
         <td width="10%"><input type="button" value="生成" onclick="addStr('air_9')"></td>
     </tr>
+
+        <tr>
+        <td width="15%">修改退票手续费</td>
+        <td>
+            订单号:<input id="air_10_1" name="air_10" type="text">
+            &nbsp;原退票手续费费:<input id="air_10_2" name="air_10" type="text">
+            &nbsp;改后退票手续费:<input id="air_10_3" name="air_10" type="text">
+            <input id = "air_10" type="hidden" value="update refund_ticket_rel set fee = _3_  where order_id = '_1_' and fee = _2_ ;">
+        </td>
+        <td width="10%"><input type="button" value="生成" onclick="addStr('air_10')"></td>
+    </tr>
+
     <tr>
         <td colspan="3">酒店订单</td>
     </tr>
